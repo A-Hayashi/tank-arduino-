@@ -8,10 +8,20 @@
 #define MAX_PACKET_LENGTH 	200
 
 
+/*
+0:START1
+1:START2
+2:cType
+3:len
+4:dType
+5-:Option
+*/
+
 
 enum DataType
 {
 	dType_None = 0,
+	dType_Control,
 	dType_StringMessage,
 	dType_EndOfType
 };
@@ -20,39 +30,23 @@ enum DataType
 enum CommandType
 {
 	cType_None = 0,
+	cType_Motor1,
+	cType_Motor2,
 	cType_EndOfType
 };
 
 
-class I2C_Class
+enum MotorDirectionType
 {
-public:
-
-/////////////////////////////////////////////////////////////////////////
-
-	void begin(long baud);	
-	
-	void Receive(void);
-		
-	void Send_Command(int sendCommand, int sendOption);	
-	void Send_Processing(byte _data[], byte _length, byte _crc[]);
-	
-	unsigned short CRC16_Make(unsigned char *buf, int len); //CRC16-CCITT Format
-	boolean CRC16_Check(unsigned char data[], int len, unsigned char crc[]);
-	
-	byte cmdBuff[MAX_PACKET_LENGTH];
-
-	byte checkHeader;
-	byte cmdIndex;
-	byte receiveDtype;
-	byte receiveLength;
-	
-	int receiveComplete;
-
-	byte dataBuff[30];
-	
+	mdType_Stop = 0,
+	mdType_Forward,
+	mdType_Backward,
 };
 
-extern I2C_Class I2C;
+extern	void I2C_begin(byte adress);	
+extern	byte Motor1Direction;
+extern	byte Motor1Speed;
+extern	byte Motor2Direction;
+extern	byte Motor2Speed;
 
 #endif   
