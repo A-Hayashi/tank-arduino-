@@ -44,6 +44,7 @@ enum MotorDirectionType
 };
 
 extern	void I2C_begin(byte adress);	
+extern	void I2C_Receive();
 extern	byte Motor1Direction;
 extern	byte Motor1Speed;
 extern	byte Motor2Direction;

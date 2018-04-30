@@ -25,9 +25,9 @@ void I2C_begin(byte adress)
 	Serial.begin(9600);
 }
 
-static void I2C_Receive()
+void I2C_Receive()
 {
-	Serial.println("ReceiveStart");
+//	Serial.println("ReceiveStart");
 	if (Wire.available() > 0)
 	{
 		int input = Wire.read();
@@ -116,7 +116,7 @@ static void I2C_Receive()
 			cmdIndex = 0;
 		}
 	}
-	Serial.println("ReceiveEnd");
+//	Serial.println("ReceiveEnd");
 }
 
 
