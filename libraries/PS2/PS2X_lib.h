@@ -74,7 +74,7 @@ GNU General Public License for more details.
 
 // $$$$$$$$$$$$ DEBUG ENABLE SECTION $$$$$$$$$$$$$$$$
 // to debug ps2 controller, uncomment these two lines to print out debug to uart
-#define PS2X_DEBUG
+//#define PS2X_DEBUG
 //#define PS2X_COM_DEBUG
 
 #ifndef PS2X_lib_h
@@ -92,8 +92,7 @@ GNU General Public License for more details.
 #ifdef __AVR__
   // AVR
   #include <avr/io.h>
-//  #define CTRL_CLK        4
-  #define CTRL_CLK        20
+  #define CTRL_CLK        4
   #define CTRL_BYTE_DELAY 3
 #else
   // Pic32...
