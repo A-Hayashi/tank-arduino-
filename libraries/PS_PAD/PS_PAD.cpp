@@ -15,10 +15,14 @@ int PS_PAD::init () {
 	pinMode(_ss_pin, OUTPUT);
 	digitalWrite(_ss_pin, HIGH);
 	 
-	SPI.setBitOrder(LSBFIRST);				// Least Significant Bit First
-	SPI.setClockDivider(SPI_CLOCK_DIV64);	// 16MHz(Arduino NANO) / 64 = 250kHz
-	SPI.setDataMode(SPI_MODE3);	// Clock is High when inactive (CPOL=1)
-								// Data is Valid on Clock Trailing Edge (CPHA=1)
+	/*
+		Least Significant Bit First
+		16MHz(Arduino NANO) / 64 = 250kHz
+		Clock is High when inactive (CPOL=1)
+		Data is Valid on Clock Trailing Edge (CPHA=1)
+	*/
+	_SPISettings = SPISettings(250000, LSBFIRST, SPI_MODE3);
+
 	SPI.begin();
 	
     _vib1 = 0;
@@ -126,7 +130,7 @@ int PS_PAD::vibration (int v1, int v2) {
  
 int PS_PAD::send (const char *cmd, int len, char *dat) {
     int i;
- 
+	SPI.beginTransaction(_SPISettings);
 	digitalWrite(_ss_pin, LOW);
     delayMicroseconds(10);
     for (i = 0; i < len; i ++) {
@@ -134,6 +138,7 @@ int PS_PAD::send (const char *cmd, int len, char *dat) {
         delayMicroseconds(10);
     }
     digitalWrite(_ss_pin, HIGH);
+	SPI.endTransaction();
     return i;
 }
  

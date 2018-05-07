@@ -34,6 +34,7 @@ public:
  
 private:
 	byte _ss_pin;
+	SPISettings _SPISettings;
 	
     uint8_t _pad[6];
     int _vib1, _vib2;
